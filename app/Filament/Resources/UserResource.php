@@ -39,14 +39,21 @@ class UserResource extends Resource
                     ->required()
                     ->maxLength(255),
 
-                DateTimePicker::make('email_verified_at')
-                    ->label('Email Verified At')
-                    ->nullable(),
-
                 TextInput::make('password')
                     ->label('Password')
                     ->password()
+                    ->hiddenOn('edit')
                     ->required()
+                    ->visibleOn('create')
+                    ->confirmed()
+                    ->minLength(8),
+
+                TextInput::make('password_confirmation')
+                    ->label('Confirm Password')
+                    ->password()
+                    ->hiddenOn('edit')
+                    ->required()
+                    ->visibleOn('create')
                     ->minLength(8),
             ]);
     }
@@ -82,7 +89,7 @@ class UserResource extends Resource
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
             'view' => Pages\ViewUser::route('/{record}'),
-            'edit' => Pages\EditUser::route('/{record}/edit'), 
+            'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
 }

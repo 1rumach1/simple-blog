@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class CreateUser extends CreateRecord
 {
@@ -15,7 +16,12 @@ class CreateUser extends CreateRecord
     {
         return $this->getResource()::getUrl('index');
     }
-
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['email_verified_at'] = Carbon::now();
+        $data['password'] = bcrypt($data['password']);
+        return $data;
+    }
     protected function handleRecordCreation(array $data): Model
     {
         /** @var \App\Models\User $user */
