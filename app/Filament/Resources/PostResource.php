@@ -75,12 +75,11 @@ class PostResource extends Resource
                     ->disk('public')
                     ->visibility('public')
                     ->url(fn($record) => asset('storage/' . $record->thumbnail)),
-                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('title')->searchable(),
                 Tables\Columns\IconColumn::make('active')
-                    ->boolean(),
+                    ->boolean()->sortable(),
                 Tables\Columns\TextColumn::make('published_at')
-                    ->dateTime(),
-                //               Tables\Columns\TextColumn::make('user.name'),
+                    ->dateTime()->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime(),
             ])
@@ -90,6 +89,7 @@ class PostResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -109,6 +109,7 @@ class PostResource extends Resource
             'index' => Pages\ListPosts::route('/'),
             'create' => Pages\CreatePost::route('/create'),
             'edit' => Pages\EditPost::route('/{record}/edit'),
+            'view' => Pages\ViewPost::route('/{record}/view'),
         ];
     }
 }
