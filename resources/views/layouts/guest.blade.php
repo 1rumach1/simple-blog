@@ -1,7 +1,7 @@
-<x-app-layout>
-    <div class="w-full flex flex-col justify-center items-center ">
-        <div class=" sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+<x-log-layout>
+    <div class="w-full max-w-md mx-auto p-6">
+        <div class="bg-white bg-opacity-90 backdrop-blur-md shadow-lg rounded-xl p-8">
             {{ $slot }}
         </div>
     </div>
-</x-app-layout>
+</x-log-layout>

@@ -17,16 +17,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
         integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
     @livewireStyles
+    @livewireScripts
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-blue-50 font-family-karla">
 
-    @include('components.header')
-
     <!-- Text Header -->
-    <header class="w-full bg-blue-500">
+    <header class="w-full bg-blue-500 bg-center bg-no-repeat" style="background-image: url('{{ asset('storage/sea.jpg') }}'); background-size: 100% auto;">
         <div class="container mx-auto flex flex-col items-center py-12">
             <a class="font-bold text-white uppercase hover:text-gray-100 text-7xl m-3" href="#">
                 {{ \App\Models\TextWidget::getTitle('header') }}
@@ -34,12 +33,12 @@
             <div class="text-white text-lg mb-0 prose prose-invert max-w-none text-center">
                 {!! \App\Models\TextWidget::getContent('header') !!}
             </div>
-
         </div>
     </header>
 
     <!-- Topic Nav -->
     <nav class="w-full py-4 border-t border-b bg-gray-100" x-data="{ open: false }">
+
         <div class="block sm:hidden">
             <a href="#" class="block md:hidden text-base font-bold uppercase text-center  justify-center items-center"
                 @click="open = !open">
@@ -49,6 +48,9 @@
         <div :class="{'hidden': !open}" class="w-full flex-grow sm:flex sm:items-center sm:w-auto">
             <div
                 class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-between text-sm font-bold uppercase mt-0 px-6 py-2">
+                <a href="{{ url('/') }}" class="flex items-center">
+                    <img src="{{ asset('storage/logo.png') }}" alt="Logo" class="h-10 w-auto object-contain ml-2"> <!-- adjust h-10 as needed -->
+                </a>
                 <div>
                     <a href="{{route('home')}}"
                         class="hover:bg-blue-600 rounded py-2 px-4 mx-2  hover:text-white">Home</a>
@@ -60,6 +62,11 @@
                         class="hover:bg-blue-600  hover:text-white rounded py-2 px-4 mx-2">About Us</a>
 
                 </div>
+                <form method="get" action="{{route('search')}}">
+                    <input name="q" value="{{request()->get('q')}}"
+                           class="block w-full rounded-md border-0 px-3.5 py-2 t0ext-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 font-medium"
+                           placeholder="Type an hit enter to search anything"/>
+                </form>
 
                 <div>
                     @auth

@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use \Illuminate\Contracts\Auth\MustVerifyEmail;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable  implements FilamentUser, MustVerifyEmail
+class User extends Authenticatable  implements FilamentUser // ,MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
